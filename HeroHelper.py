@@ -206,4 +206,4 @@ def update_result(age,cp, tbps, chol, recg, thalach, texang, oldpeak):
     return "Input Dataset=%s, model-RandomForest, \n diagnosis of heart disease (angiographic disease status)=%s" % (X_test_F[0], y_pred[0]) 
 
 
-app.run_server(debug=False)
+app.run_server(debug=False, port=80)
