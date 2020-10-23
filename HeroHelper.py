@@ -21,7 +21,7 @@ from sklearn.preprocessing import StandardScaler
 
 
 app = dash.Dash()
-
+server = app.server
 app.layout = html.Div(
             [
             html.Br(),
@@ -205,5 +205,4 @@ def update_result(age,cp, tbps, chol, recg, thalach, texang, oldpeak):
 
     return "Input Dataset=%s, model-RandomForest, \n diagnosis of heart disease (angiographic disease status)=%s" % (X_test_F[0], y_pred[0]) 
 
-port: int(os.environ.get("PORT", 5000))
-app.run_server(debug=False, port=port)
+app.run_server(debug=False)
