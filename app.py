@@ -206,4 +206,5 @@ def update_result(age, cp, tbps, chol, recg, thalach, texang, oldpeak):
 
 #import os from pml import app port = int(os.environ.get('PORT', 5000))
 #app.run()
-app.run_server(debug = True, port = int(os.environ.get('PORT', 6000)))
+if __name__ == '__main__':
+            app.run_server(debug = True, port = int(os.environ.get('PORT', 6000)))
