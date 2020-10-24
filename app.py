@@ -9,7 +9,7 @@ from sklearn.svm import SVC
 #from sklearn.metrics import accuracy_score
 #import matplotlib.pyplot as plt
 #import plotly.express as px
-
+import os
 
 app = dash.Dash()
 
@@ -205,4 +205,5 @@ def update_result(age, cp, tbps, chol, recg, thalach, texang, oldpeak):
     return "\ndiagnosis of heart disease (angiographic disease status)=%s \n" % (y_pred[0])
 
 #import os from pml import app port = int(os.environ.get('PORT', 5000))
-app.run()
+#app.run()
+app.run(threaded=True, port = int(os.environ.get('PORT', 5000)))
