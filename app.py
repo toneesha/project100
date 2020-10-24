@@ -68,6 +68,11 @@ app.layout = html.Div(
         html.Div([
             html.A("HELP", href='https://archive.ics.uci.edu/ml/datasets/heart+disease', target="_blank"),
             ], style={'textAlign': 'center', 'color': 'Red'}),
+        html.Br(),
+        html.Br(),
+        html.Div([
+            html.A("© toneesha@gmail.com 20201025"),
+        ], style={'textAlign': 'center', 'color': 'Red'}),
     ],
 )
 
