@@ -36,7 +36,7 @@ app.layout = html.Div(
             html.Div([html.P('Doctor ID', style={"height": "auto", "margin-bottom": "auto"}),
                       dcc.Input(id='did', placeholder = 'XXXXXX', type="text", value='', ), ]),
             html.Br(),
-            ],style={'textAlign': 'center','columnCount': 3, 'width' : '30%','height':'80%', 'marginLeft': 160 , 'minWidth' : 1000, 'background-color': 'rgb(60, 185, 200)'}),
+            ],style={'textAlign': 'center','columnCount': 3, 'width' : '30%','height':'80%', 'margin': '0 auto' , 'minWidth' : 1000, 'background-color': 'rgb(60, 185, 200)'}),
             html.Br(),  
             html.Div([
             html.Div([html.P('Age', style={"height": "auto", "margin-bottom": "auto"}),
@@ -56,14 +56,14 @@ app.layout = html.Div(
                       dcc.Input(id='texang', placeholder ='1=yes; 0=no',type="number", value='', ), ]),
             html.Div([html.P('ST Depression', style={"height": "auto", "margin-bottom": "auto"}),
                       dcc.Input(id='oldpeak', placeholder ='ST depression induced',type="number", value='', ), ]),
-        ],style={'textAlign': 'center','columnCount': 3, 'width' : '30%','height':'80%', 'marginLeft': 160 , 'minWidth' : 1000, 'background-color': 'rgb(60, 185, 200)'}),
+        ],style={'textAlign': 'center','columnCount': 3, 'width' : '30%','height':'80%', 'margin': '0 auto' , 'minWidth' : 1000, 'background-color': 'rgb(60, 185, 200)'}),
         html.Br(),
         html.Div(id="result",
-                 style={'font-weight': 'bold', 'white-space': 'pre-line','textAlign': 'center','columnCount': 1, 'width' : '30%','height':'90%', 'marginLeft': 160 , 'minWidth' : 1000, 'background-color': 'rgb(253, 51, 153)'}),
+                 style={'font-weight': 'bold', 'white-space': 'pre-line','textAlign': 'center','columnCount': 1, 'width' : '30%','height':'90%', 'margin': '0 auto', 'minWidth' : 1000, 'background-color': 'rgb(253, 51, 153)'}),
         html.Br(),
         html.Div([
-        html.H3('Cardiovascular Disease Status: Value 0: < 50% diameter narrowing, Value 1: > 50% diameter narrowing', style={'textAlign': 'center', 'color': 'White', 'background-color': 'rgb(60, 185, 200)' }),
-        ],style={'textAlign': 'center','columnCount': 1, 'width' : '30%','height':'80%', 'marginLeft': 160 , 'minWidth' : 1000, 'background-color': 'rgb(60, 185, 200)'}),
+        html.H3('Cardiovascular Disease Status:  Value 0: < 50% diameter narrowing,   Value 1: > 50% diameter narrowing', style={'textAlign': 'center', 'color': 'Black', 'background-color': 'rgb(60, 185, 200)' }),
+        ],style={'textAlign': 'center','columnCount': 1, 'width' : '30%','height':'80%', 'margin': '0 auto' , 'minWidth' : 1000, 'background-color': 'rgb(60, 185, 200)'}),
         html.Br(),
         html.Div([
             html.A("HELP", href='https://archive.ics.uci.edu/ml/datasets/heart+disease', target="_blank"),
@@ -90,23 +90,6 @@ app.layout = html.Div(
      ]
 )
 def update_result(age, cp, tbps, chol, recg, thalach, texang, oldpeak):
-    
-    """
-    df = pd.read_csv('C:\\Users\\Senithma\\Desktop\\Python\\processed.cleveland.data.csv')
-    dfd = df[(df["ca"]!="?")&(df["thal"]!="?")]
-#   dfd["num"].replace({2:1,3:1,4:1}, inplace=True)
-
-    x = dfd.drop('num',axis=1)
-    y = dfd['num']
-    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=0)
-    SupportVectorClassModel = SVC(kernel='linear')
-    SupportVectorClassModel.fit(x_train,y_train)
-    x_test = [[age,sex,cp,tbps,chol,fbs,recg,thalach,texang,oldpeak,slope,ca,thal]]
-#    x_test = [[41.0,0.0,2.0,130.0,204.0,0.0,2.0,172.0,0.0,1.4,1.0,0.0,3.0]]
-    y_pred = SupportVectorClassModel.predict(x_test)
-#    return "Cardioavasculer prediction for the patient: >>>>  ",age, sex, cp, tbps, chol, fbs, recg, thalach, texang, oldpeak, slope, ca, thal,"\n",y_pred[0]
-    """
-    
 
     dataFile1 = ["processed.hungarian.data", "processed.cleveland.data", "processed.switzerland.data", "processed.va.data"]
     i=  0 #----> change file
@@ -184,7 +167,7 @@ def update_result(age, cp, tbps, chol, recg, thalach, texang, oldpeak):
 
     y_train_F = train[train["sex"]==0]['num']
 
-# Femenine - test
+# Femenine - test 
     X_test_F = test[test["sex"]==0]
     X_test_F1 = X_test_F.drop('num', axis=1)
     X_test_F = X_test_F1.drop('sex', axis=1)
@@ -202,9 +185,9 @@ def update_result(age, cp, tbps, chol, recg, thalach, texang, oldpeak):
     y_pred = svm_linear.predict(X_test_F)    
     
 #    return "Input Dataset=%s, Model SVM (Support Vector Mechine) with linear Kernel\n diagnosis of heart disease (angiographic disease status)=%s" % (X_test_F[0], y_pred[0])
-    return "\ndiagnosis of heart disease (angiographic disease status)=%s \n" % (y_pred[0])
+    return "\nDiagnosis of heart disease (angiographic disease status) Value = %s \n -" % (y_pred[0])
 
 #import os from pml import app port = int(os.environ.get('PORT', 5000))
 #app.run()
 if __name__ == '__main__':
-            app.run_server(debug=True, host='0.0.0.0', port=os.environ.get('PORT', '5000'))
+            app.run_server(debug=False, host='0.0.0.0', port=os.environ.get('PORT', '5000'))
