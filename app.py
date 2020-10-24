@@ -27,7 +27,7 @@ app.layout = html.Div(
                                               'width': '7%',},) 
                           ]),
                 ]),
-#            html.Br(),
+            html.Br(),
             html.Div([
             html.Div([html.P('Personnummer', style={"height": "auto", "margin-bottom": "auto"}),
                       dcc.Input(id='pn', placeholder = 'YYYYMMDD-XXXX', type="text", value='', ), ]),
