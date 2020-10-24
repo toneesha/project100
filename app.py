@@ -204,5 +204,5 @@ def update_result(age, cp, tbps, chol, recg, thalach, texang, oldpeak):
 #    return "Input Dataset=%s, Model SVM (Support Vector Mechine) with linear Kernel\n diagnosis of heart disease (angiographic disease status)=%s" % (X_test_F[0], y_pred[0])
     return "\ndiagnosis of heart disease (angiographic disease status)=%s \n" % (y_pred[0])
 
-
-app.run_server(debug=False)
+import os from pml import app port = int(os.environ.get('PORT', 5000))
+app.run(host='0.0.0.0', port=port)
