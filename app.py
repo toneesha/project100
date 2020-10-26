@@ -57,7 +57,7 @@ app.layout = html.Div(
             html.Div([html.P('Exercise Induced Angina', style={"height": "auto", "margin-bottom": "auto"}),
                       dcc.Input(id='texang', placeholder ='1=yes; 0=no',type="number", value='', ), ]),
             html.Div([html.P('ST Depression', style={"height": "auto", "margin-bottom": "auto"}),
-                      dcc.Input(id='oldpeak', placeholder ='ST depression induced',type="number", value='', ), ]),
+                      dcc.Input(id='oldpeak', placeholder ='1,2,3,4', type="number", value='', ), ]),
         ],style={'textAlign': 'center','columnCount': 3, 'width' : '30%','height':'80%', 'margin': '0 auto' , 'minWidth' : 1000, 'background-color': 'rgb(60, 185, 200)'}),
         html.Br(),
         html.Div(id="result",
@@ -192,7 +192,7 @@ def update_result(age, cp, tbps, chol, recg, thalach, texang, oldpeak):
     y_pred = svm_linear.predict(X_test_F)    
     
 #    return "Input Dataset=%s, Model SVM (Support Vector Mechine) with linear Kernel\n diagnosis of heart disease (angiographic disease status)=%s" % (X_test_F[0], y_pred[0])
-    return "\nDiagnosis of heart disease (angiographic disease status) Value = %s \n -" % (y_pred[0])
+    return "\n Possibilty of Cardiovascular disease = %s \n -" % (y_pred[0])
 
 #import os from pml import app port = int(os.environ.get('PORT', 5000))
 #app.run()
