@@ -64,7 +64,7 @@ app.layout = html.Div(
                  style={'font-weight': 'bold', 'white-space': 'pre-line','textAlign': 'center','columnCount': 1, 'width' : '30%','height':'90%', 'margin': '0 auto', 'minWidth' : 1000, 'background-color': 'rgb(253, 51, 153)'}),
         html.Br(),
         html.Div([
-        html.H3('Cardiovascular Disease Status:  Value 0: < 50% diameter narrowing,   Value 1: > 50% diameter narrowing', style={'textAlign': 'center', 'color': 'Black', 'background-color': 'rgb(60, 185, 200)' }),
+        html.H3('Cardiovascular Disease Status:  Value 0 = Healthy,   Value 1 = Disease', style={'textAlign': 'center', 'color': 'Black', 'background-color': 'rgb(60, 185, 200)' }),
         ],style={'textAlign': 'center','columnCount': 1, 'width' : '30%','height':'80%', 'margin': '0 auto' , 'minWidth' : 1000, 'background-color': 'rgb(60, 185, 200)'}),
         html.Br(),
         html.Div([
