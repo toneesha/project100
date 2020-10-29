@@ -2,23 +2,16 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
-#import numpy as np
 import pandas as pd
-#from sklearn.model_selection import train_test_split
 from sklearn.svm import SVC
-#from sklearn.metrics import accuracy_score
-#import matplotlib.pyplot as plt
-#import plotly.express as px
+
 import os
 
 app = dash.Dash()
-
 app.layout = html.Div(
-            [
-#            html.Br(),   
+            [ 
             html.H1('Hero Help', style={'textAlign': 'center', 'color': 'White', 'background-color': 'rgb(253, 51, 153)'},),
             html.H2('Your Friend in Diagnosing women with cardiovascular Disease', style={'textAlign': 'center', 'color': 'White', 'background-color': 'rgb(253, 51, 153)' }),
-#            html.Br(),
             html.Div([ html.A([html.Img(src='https://i.ibb.co/SrV9MhS/logo.png', 
                                         style={
                                               'display': 'block',
@@ -82,18 +75,13 @@ app.layout = html.Div(
 @app.callback(
      Output('result', 'children'),
      [Input('age', 'value'),
-#     Input('sex', 'value'),
      Input('cp', 'value'),
      Input('tbps', 'value'),
      Input('chol', 'value'),
-#     Input('fbs', 'value'),
      Input('recg', 'value'),
      Input('thalach', 'value'),
      Input('texang', 'value'),
      Input('oldpeak', 'value'),
-#     Input('slope', 'value'),
-#     Input('ca', 'value'),
-#     Input('thal', 'value')
      ]
 )
 def update_result(age, cp, tbps, chol, recg, thalach, texang, oldpeak):
@@ -101,18 +89,13 @@ def update_result(age, cp, tbps, chol, recg, thalach, texang, oldpeak):
     dataFile1 = ["processed.hungarian.data", "processed.cleveland.data", "processed.switzerland.data", "processed.va.data"]
     i=  0 #----> change file
     File = (dataFile1[i])
-
     data1 = pd.read_csv(File, header=None)
     data1.set_axis(['age', 'sex', 'cp', 'trestbps', 'chol', 'fbs', 'restecg', 'thalach', 'exang', 'oldpeak', 'slope', 'ca', 'thal', 'num'], axis=1,inplace=True)
-#delete some irrelevant features
     data1 = data1.drop('ca', axis=1)
     data1 = data1.drop("slope", axis=1)
     data1 = data1.drop("thal", axis=1)
     data1 = data1.drop("fbs", axis=1)
-#delete missing values
     data1 = data1[data1!="?"].dropna(axis=0, how="any", thresh=None, subset=None, inplace=False)
-
-# FUNCTION (replace ? & 1, 2, 3,4) (constant 0,1)
     def replace_num(x):
         if x == "?":
             return 0
@@ -120,10 +103,8 @@ def update_result(age, cp, tbps, chol, recg, thalach, texang, oldpeak):
             return "1"
         else:
             return x
-#-------------------------------------------------
     data1["num"] = data1["num"].apply(replace_num)
 
-##3. Unify Datatype
     pd.set_option("display.float", "{:.2f}".format)
     data=data1
     data[["sex","cp","restecg","exang","num"]] = data1[["sex","cp","restecg","exang","num"]].astype(int)
@@ -136,15 +117,11 @@ def update_result(age, cp, tbps, chol, recg, thalach, texang, oldpeak):
 
     data1 = pd.read_csv(File, header=None)
     data1.set_axis(['age', 'sex', 'cp', 'trestbps', 'chol', 'fbs', 'restecg', 'thalach', 'exang', 'oldpeak', 'slope', 'ca', 'thal', 'num'], axis=1,inplace=True)
-#delete some irrelevant features
     data1 = data1.drop('ca', axis=1)
     data1 = data1.drop("slope", axis=1)
     data1 = data1.drop("thal", axis=1)
     data1 = data1.drop("fbs", axis=1)
-#delete missing values
     data1 = data1[data1!="?"].dropna(axis=0, how="any", thresh=None, subset=None, inplace=False)
-
-# FUNCTION (replace ? & 1, 2, 3,4) (constant 0,1)
     def replace_num(x):
         if x == "?":
             return 0
@@ -152,49 +129,34 @@ def update_result(age, cp, tbps, chol, recg, thalach, texang, oldpeak):
             return "1"
         else:
             return x
-#-------------------------------------------------
     data1["num"] = data1["num"].apply(replace_num)
 
-##3. Unify Datatype
     pd.set_option("display.float", "{:.2f}".format)
     data=data1
     data[["sex","cp","restecg","exang","num"]] = data1[["sex","cp","restecg","exang","num"]].astype(int)
     data[["age","trestbps","chol","thalach","oldpeak"]] = data1[["age","trestbps","chol","thalach","oldpeak"]].astype(float)
     dataSet2 = data
 
-#train = dataSet1.append(dataSet2)
     train = dataSet2
-#test = dataSet3
     test = dataSet1
 
-# Femenine - train
     X_train_F = train[train["sex"]==0]
     X_train_F = X_train_F.drop('num', axis=1)
     X_train_F = X_train_F.drop('sex', axis=1)
-
     y_train_F = train[train["sex"]==0]['num']
 
-# Femenine - test 
     X_test_F = test[test["sex"]==0]
     X_test_F1 = X_test_F.drop('num', axis=1)
     X_test_F = X_test_F1.drop('sex', axis=1)
 
     y_test_F = test[test["sex"]==0]['num']
 
-#    svm_rbf = SVC(kernel='rbf', gamma=0.1, C=1.0)
-#    svm_rbf.fit(X_train_F, y_train_F)
-
     svm_linear = SVC(kernel='linear', gamma=0.1, C=1.0)
     svm_linear.fit(X_train_F, y_train_F)
 
-#    X_test_F = [[56,1,125,210,2,165,2,2]]
     X_test_F = [[age,cp,tbps,chol,recg,thalach,texang,oldpeak]]
     y_pred = svm_linear.predict(X_test_F)    
     
-#    return "Input Dataset=%s, Model SVM (Support Vector Mechine) with linear Kernel\n diagnosis of heart disease (angiographic disease status)=%s" % (X_test_F[0], y_pred[0])
     return "\n Possibilty of Cardiovascular disease = %s \n -" % (y_pred[0])
-
-#import os from pml import app port = int(os.environ.get('PORT', 5000))
-#app.run()
 if __name__ == '__main__':
             app.run_server(debug=True, host='0.0.0.0', port=os.environ.get('PORT', '5000'))
