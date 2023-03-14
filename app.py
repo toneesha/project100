@@ -66,7 +66,7 @@ app.layout = html.Div(
         html.Br(),
         html.Br(),
         html.Div([
-            html.A("suranji"),
+            html.A("toneesha@gmail.com"),
         ], style={'textAlign': 'center', 'color': 'Red'}),
     ],
 )
